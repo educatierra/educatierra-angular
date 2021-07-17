@@ -1,0 +1,74 @@
+<app-menu></app-menu>
+
+<div class="container-fluid">
+    <div class="row text-center bg-light">
+        <div class="col-md-7 d-flex align-self-center justify-content-end">
+            <div class="row">
+                <h2 class="mb-3 ms-3"><strong>Materiais</strong></h2>
+                <h6 class="d flex justify-content-center align-self-center ms-2"><a
+                        style="text-decoration: none; color: #ff9d00;" routerLink='/home'>Home</a> / Produtos</h6>
+            </div>
+
+
+        </div>
+        <div class="col-md-5 d-flex align-self-stretch justify-content-end">
+            <img class="banner" src="https://i.imgur.com/iWz0FE3.png" alt="">
+        </div>
+    </div>
+</div>
+    
+
+
+<div class="container mt-6">
+
+    <div class="row d-flex align-item-center ms-4">
+        <div class="col-md-3">
+            <div>
+                <input type="search" class="form-group" id="materia" placeholder="Search" [(ngModel)]='tituloPost'
+                    (keyup)='findByTituloPostagem()'>
+            </div>
+            <app-lista-categoria></app-lista-categoria>
+        </div>
+
+        <div class="col-md-9 mb-5">
+            <div class="row row-cols-md-3 g-4">
+                <div class="col" *ngFor='let item of listaProdutos | paginate:{ itemsPerPage: 6, currentPage: pagina, totalItems:totalProdutos}'>
+                    <div class="card text-center mt-4 ms-3 me-3">
+                        <img src="{{item.linkImagem}}" class="card-img-top img-fluid img" alt="...">
+                        <div class="card-body p-2">
+                            <h4 class="card-title">{{item.nome}}</h4>
+                            <p class="card-text">postado por: {{item.usuario.usuario}}</p>
+        
+                            <div class="card-footer p-4">
+                                <a (click)='selecionarProduto(item.id)' class="icon-produt1" data-bs-toggle="modal"
+                                    data-bs-target="#visualizarProduto">
+                                    <i class="fa fa-expand"></i>
+                                </a>
+                                <a (click)='favoritarProduto(item.id)' class="icon-produt2">
+                                    <i class="fa fa-heart"></i>
+                                </a>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+            </div>  
+            
+            
+           
+        </div>
+
+        <div class="row mt-2">
+            <div class="paginacao">
+                <pagination-controls (pageChange)="pagina = $event" previousLabel="anterior"
+                nextLabel="próximo"></pagination-controls>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<app-view-prod [img]='img' [nome]='nome' [descricao]='descricao'></app-view-prod>
+
+<app-rodape></app-rodape>
+
